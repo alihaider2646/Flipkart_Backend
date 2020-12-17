@@ -1,7 +1,7 @@
 const express = require('express');
 // const {  } = require('../controller/category');
 const { requireSignin, adminMiddleware } = require('../common-middleware');
-const { createProduct, getProductBySlug, getProductDetailsById } = require('../controller/product');
+const { createProduct, getProductBySlug, getProductDetailsById, getProducts, deleteProductById } = require('../controller/product');
 // these are the 2 libraries of exprerss for file uploader
 // const formidable = require('formidable');
 const multer = require('multer');
@@ -26,6 +26,7 @@ const upload = multer({ storage });
 router.post('/product/create', requireSignin, adminMiddleware, upload.array('productPicture'), createProduct);
 router.get('/products/:slug', getProductBySlug);
 router.get('/product/:productId', getProductDetailsById);
-// router.get('/category/getcategory', getCategories);
+router.delete('/product/deleteProductById', requireSignin, adminMiddleware, deleteProductById);
+router.post('/product/getProducts', requireSignin, adminMiddleware, getProducts);
 
 module.exports = router;
